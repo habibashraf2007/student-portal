@@ -1,0 +1,18 @@
+# Use an official lightweight Linux image with GCC compiler
+FROM gcc:latest
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# Copy all your project files into the container
+COPY . .
+
+# Compile your C++ application
+# (Make sure to link pthread if httplib requires it)
+g++ -std=c++17 main.cpp -o server -lpthread
+
+# Expose the default port (Render/Railway will map this automatically)
+EXPOSE 8080
+
+# Run the compiled server executable
+CMD ["./server"]
